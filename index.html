@@ -310,13 +310,16 @@
         showSuccess(data.id);
         form.reset();
 
-      } catch (err) {
-        console.error(err);
-        showError("Submission failed. Please try again.");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit Application";
-      }
+      }  catch (err) {
+  console.error("Supabase insert error:", err);
+
+  const details =
+    (err?.message ? err.message : "Unknown error") +
+    (err?.details ? " | " + err.details : "") +
+    (err?.hint ? " | Hint: " + err.hint : "");
+
+  showError("Submission failed: " + details);
+}
     });
   </script>
 </body>
